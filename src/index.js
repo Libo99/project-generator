@@ -8,32 +8,32 @@ const frameworks = [
     name: "react",
     color: cyan,
     variants: [
-      { name: "JavaScript", color: yellow },
-      { name: "TypeScript", color: blue },
+      { name: "react", display: "JavaScript", color: yellow },
+      { name: "react-ts", display: "TypeScript", color: blue },
     ],
   },
   {
     name: "nextjs",
     color: lightCyan,
     variants: [
-      { name: "JavaScript", color: yellow },
-      { name: "TypeScript", color: blue },
+      { name: "nextjs", display: "JavaScript", color: yellow },
+      { name: "nextjs-ts", display: "TypeScript", color: blue },
     ],
   },
   {
     name: "vue",
     color: green,
     variants: [
-      { name: "JavaScript", color: yellow },
-      { name: "TypeScript", color: blue },
+      { name: "vue", display: "JavaScript", color: yellow },
+      { name: "vue-ts", display: "TypeScript", color: blue },
     ],
   },
   {
     name: "svelte",
     color: red,
     variants: [
-      { name: "JavaScript", color: yellow },
-      { name: "TypeScript", color: blue },
+      { name: "svelte", display: "JavaScript", color: yellow },
+      { name: "svelte-ts", display: "TypeScript", color: blue },
     ],
   },
 ];
@@ -54,8 +54,8 @@ inquirer
     },
     {
       type: "list",
-      name: "language",
-      message: "choose a language",
+      name: "variant",
+      message: "choose a variant",
       choices({ framework }) {
         return framework.variants.map((variant) => {
           const color = variant.color;
@@ -67,8 +67,8 @@ inquirer
       },
     },
   ])
-  .then(({ framework, language }) =>
-    console.log(`Making a ${framework.name} project with ${language.name}`)
+  .then(({ framework, variant }) =>
+    console.log(`Making a ${framework.name} project with ${variant.display}`)
   );
 //   .then(({ framework }) => {
 //     inquirer
