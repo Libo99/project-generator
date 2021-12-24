@@ -46,6 +46,16 @@ const init = async () => {
     await inquirer
       .prompt([
         {
+          type: 'input',
+          name: 'projectName',
+          message: 'Add the name for the project',
+          default: 'my-app',
+          validate: function (input) {
+            if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
+            else return red('\nInvalid Project Name ')
+          }
+        },
+        {
           type: 'list',
           name: 'framework',
           message: 'choose a framework',
@@ -69,15 +79,6 @@ const init = async () => {
                 value: variant
               }
             })
-          }
-        },
-        {
-          type: 'input',
-          name: 'projectName',
-          message: 'Add the name for the project',
-          validate: function (input) {
-            if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
-            else return red('\nInvalid Project Name ')
           }
         }
       ])
