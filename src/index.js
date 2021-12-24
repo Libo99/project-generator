@@ -85,7 +85,9 @@ const init = async () => {
         const templatePath = `${__dirname}/templates/template-${variant.name}`
         fs.mkdirSync(`${cwd}/${projectName}`)
         createDirectoryContents(templatePath, projectName)
-        console.log(`\nGenerating project in ${cwd}/${projectName}...`)
+        console.log(
+          `\nGenerating ${framework.name} project in ${cwd}/${projectName}...`
+        )
 
         console.log('\nDone!')
         console.log('\nNow run: ')
