@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node src/index.js"
   },
+  "bin": {
+    "app-cli": "src/index.js"
+  },
   "keywords": [],
   "author": "Liban Rage",
   "license": "MIT",

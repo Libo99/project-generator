@@ -1,12 +1,11 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
+#!/usr/bin/env node
+const inquirer = require('inquirer')
+const fs = require('fs')
 // const path = require('path');
-const { cyan, blue, green, yellow, red, lightCyan } = require('kolorist');
-const { createDirectoryContents } = require('./createDirectory');
+const { cyan, blue, green, yellow, red, lightCyan } = require('kolorist')
+const { createDirectoryContents } = require('./utils/createDirectory')
 
-const cwd = process.cwd();
-
-const reactApp = fs.readdirSync(`${__dirname}/templates/template-react`);
+const cwd = process.cwd()
 
 const frameworks = [
   {
@@ -41,7 +40,7 @@ const frameworks = [
       { name: 'svelte-ts', display: 'TypeScript', color: blue }
     ]
   }
-];
+]
 
 const init = async () => {
   try {
@@ -52,11 +51,11 @@ const init = async () => {
           name: 'framework',
           message: 'choose a framework',
           choices: frameworks.map((framework) => {
-            const color = framework.color;
+            const color = framework.color
             return {
               value: framework,
               name: color(framework.name)
-            };
+            }
           })
         },
         {
@@ -65,12 +64,12 @@ const init = async () => {
           message: 'choose a variant',
           choices({ framework }) {
             return framework.variants.map((variant) => {
-              const color = variant.color;
+              const color = variant.color
               return {
                 name: color(variant.name),
                 value: variant
-              };
-            });
+              }
+            })
           }
         },
         {
@@ -78,44 +77,19 @@ const init = async () => {
           name: 'projectName',
           message: 'Add project name',
           validate: function (input) {
-            if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true;
-            else return 'Project name is not allowed';
+            if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
+            else return red('Invalid Project Name ')
           }
         }
       ])
-      
-      .then(({ framework, variant, projectName }) => {
-        switch(framework.name === 'react') {
-          case variant.name === 'react':
-            fs.mkdirSync(`${cwd}, ${projectName}`);
-            createDirectoryContents(reactApp, projectName);
-            break;
-          default:
-            break;
-        }
-      });
-    //   .then(({ framework }) => {
-    //     inquirer
-    //       .prompt([
-    //         {
-    //           type: "list",
-    //           name: "language",
-    //           message: "choose a Language",
-    //           choices: framework.variants.map((variant) => {
-    //             const color = variant.color;
-    //             return {
-    //               value: variant,
-    //               name: color(variant.name),
-    //             };
-    //           }),
-    //         },
-    //       ])
-    //       .then(({ language }) =>
-    //         console.log(`Generating a ${framework} project ${language.name} `)
-    //       );
-    //   });
+
+      .then(({ variant, projectName }) => {
+        const templatePath = `${__dirname}/templates/template-${variant.name}`
+        fs.mkdirSync(`${cwd}/${projectName}`)
+        createDirectoryContents(templatePath, projectName)
+      })
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
-init().catch(err => console.log(err));
+}
+init().catch((err) => console.log(err))
