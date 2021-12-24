@@ -75,18 +75,26 @@ const init = async () => {
         {
           type: 'input',
           name: 'projectName',
-          message: 'Add project name',
+          message: 'Add the name for the project',
           validate: function (input) {
             if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
-            else return red('Invalid Project Name ')
+            else return red('\nInvalid Project Name ')
           }
         }
       ])
-
       .then(({ variant, projectName }) => {
         const templatePath = `${__dirname}/templates/template-${variant.name}`
+
         fs.mkdirSync(`${cwd}/${projectName}`)
         createDirectoryContents(templatePath, projectName)
+
+        console.log(cyan('\nApp generated!'))
+
+        console.log('\n--------------------------')
+        console.log('\ncd <project-name>')
+        console.log('\nnpm install')
+        console.log('\nEnjoy!')
+        console.log('\n--------------------------')
       })
   } catch (error) {
     console.log(error)
