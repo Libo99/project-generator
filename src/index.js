@@ -84,17 +84,15 @@ const init = async () => {
       ])
       .then(({ variant, projectName }) => {
         const templatePath = `${__dirname}/templates/template-${variant.name}`
-
         fs.mkdirSync(`${cwd}/${projectName}`)
         createDirectoryContents(templatePath, projectName)
+        console.log(`\nGenerating project in ${cwd}/${projectName}`)
 
-        console.log(cyan('\nApp generated!'))
-
-        console.log('\n--------------------------')
-        console.log('\ncd <project-name>')
-        console.log('\nnpm install')
-        console.log('\nEnjoy!')
-        console.log('\n--------------------------')
+        console.log('\nDone!')
+        console.log('\nNow run: ')
+        console.log(`\ncd ${projectName}`)
+        console.log('npm install')
+        console.log('npm start or npm run dev!')
       })
   } catch (error) {
     console.log(error)
