@@ -52,7 +52,7 @@ const init = async () => {
           default: 'my-app',
           validate: function (input) {
             if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
-            else return red('\nInvalid Project Name ')
+            else return red('\nInvalid Project Name')
           }
         },
         {
