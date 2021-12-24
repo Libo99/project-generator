@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const CURR_DIR = process.cwd()
 
 exports.createDirectoryContents = (templatePath, newProjectPath) => {
