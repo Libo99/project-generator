@@ -9,7 +9,6 @@ const createPkg = (files, templatePath, newProjectPath) => {
       const newPath = `${CURR_DIR}/${newProjectPath}/package.json`
       pkg.name = newProjectPath
       fs.writeFileSync(newPath, JSON.stringify(pkg, null, 2))
-      console.log(pkg)
     })
 }
 
