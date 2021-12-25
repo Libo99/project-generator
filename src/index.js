@@ -3,6 +3,7 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 const { cyan, blue, green, yellow, red, lightCyan } = require('kolorist')
 const { createDirectoryContents } = require('./utils/createDirectory')
+const argv = process.argv.slice(2)
 
 const cwd = process.cwd()
 
@@ -42,18 +43,23 @@ const frameworks = [
 ]
 
 const init = async () => {
+  let targetDir = argv[0]
+  let defaultName = !targetDir ? 'my-app' : targetDir
+
+  const checkValidName = (input) => {
+    if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
+    else return red('\nInvalid Project Name')
+  }
   try {
     await inquirer
       .prompt([
         {
-          type: 'input',
+          type: targetDir ? null : 'input',
           name: 'projectName',
           message: 'Add the name for the project',
-          default: 'my-app',
-          validate: function (input) {
-            if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true
-            else return red('\nInvalid Project Name')
-          }
+          default: defaultName,
+          validate: (answer) => checkValidName(answer),
+          when: !targetDir
         },
         {
           type: 'list',
@@ -83,16 +89,17 @@ const init = async () => {
         }
       ])
       .then(({ framework, variant, projectName }) => {
+        const name = !targetDir ? projectName : targetDir
         const templatePath = `${__dirname}/templates/template-${variant.name}`
-        fs.mkdirSync(`${cwd}/${projectName}`)
-        createDirectoryContents(templatePath, projectName)
+        fs.mkdirSync(`${cwd}/${name}`)
+        createDirectoryContents(templatePath, name)
         console.log(
-          `\nGenerating ${framework.name} project in ${cwd}/${projectName}...`
+          `\nGenerating ${framework.name} project in ${cwd}/${name}...`
         )
 
         console.log('\nDone!')
         console.log('\nNow run: ')
-        console.log(`\ncd ${projectName}`)
+        console.log(`\ncd ${name}`)
         console.log('npm install')
         console.log(
           `${framework.name === 'react' ? 'npm start' : 'npm run dev'}`
