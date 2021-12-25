@@ -94,7 +94,7 @@ const init = async () => {
         fs.mkdirSync(`${cwd}/${name}`)
         createDirectoryContents(templatePath, name)
         console.log(
-          `\nGenerating ${framework.name} project in ${cwd}/${name}...`
+          `\nGenerating project in ${cwd}/${name}...`
         )
 
         console.log('\nDone!')
