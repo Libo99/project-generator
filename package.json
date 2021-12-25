@@ -1,5 +1,5 @@
 {
-  "name": "project-generator",
+  "name": "gen-app",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -7,7 +7,7 @@
     "start": "node src/index.js"
   },
   "bin": {
-    "app-cli": "src/index.js"
+    "gen-app": "src/index.js"
   },
   "keywords": [],
   "author": "Liban Rage",
