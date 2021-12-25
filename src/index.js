@@ -56,7 +56,7 @@ const init = async () => {
         {
           type: targetDir ? null : 'input',
           name: 'projectName',
-          message: 'Add the name for the project',
+          message: 'Project Name:',
           default: defaultName,
           validate: (answer) => checkValidName(answer),
           when: !targetDir
